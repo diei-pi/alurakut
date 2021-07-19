@@ -1,3 +1,6 @@
+import { useRouter } from 'next/router';
+import { parseCookies, setCookie, destroyCookie } from 'nookies'
+import nookies from 'nookies';
 import React from 'react';
 import styled, { css } from 'styled-components';
 import NextLink from 'next/link';
@@ -21,6 +24,7 @@ function Link({ href, children, ...props }) {
 // ================================================================================================================
 export function AlurakutMenu({ githubUser }) {
   const [isMenuOpen, setMenuState] = React.useState(false);
+  const router = useRouter();
   return (
     <AlurakutMenu.Wrapper isMenuOpen={isMenuOpen}>
       <div className="container">
@@ -35,7 +39,12 @@ export function AlurakutMenu({ githubUser }) {
         </nav>
 
         <nav>
-          <a href={`/logout`}>
+          <a href={`/login`} onClick={(evento)=>{
+            evento.preventDefault();
+            const cookies = parseCookies();
+            destroyCookie(null, 'USER_TOKEN');
+            router.push('/login');
+          }}>
             Sair
           </a>
           <div>
@@ -216,7 +225,7 @@ export function AlurakutProfileSidebarMenuDefault() {
           <img src={`${BASE_URL}/icons/plus.svg`} />
             GitHub Trends
           </a>
-        <a href="/logout">
+        <a href="/login">
           <img src={`${BASE_URL}//icons/logout.svg`} />
             Sair
           </a>
