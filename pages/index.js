@@ -60,7 +60,7 @@ function ProfileRelationsBox(propriedades){
 
 
 export default function Home(props) {
-  const user =props.githubUser;
+  const user = props.githubUser;
   const [comunidades,setComunidades] = React.useState([{
     id: '12312312',
     title: 'eu odeio acordar cedo',
@@ -82,7 +82,7 @@ export default function Home(props) {
   const [seguidores, setSeguidores] = React.useState([]);
   const [i,setI] = React.useState(0);
   React.useEffect(function (){
-    fetch('https://api.github.com/users/diei-pi/followers')
+    fetch(`https://api.github.com/users/${user}/followers`)
     .then((respostaDoServidor)=>{
       return respostaDoServidor.json();
   })
